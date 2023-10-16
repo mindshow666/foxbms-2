@@ -57,8 +57,8 @@ def f_validator(
 ):
     """Returns a validator with resolved relative references"""
     schema_path = pathlib.Path(schema_path).resolve().as_posix()
-    with open(schema_path, mode="r", encoding="utf-8") as f:
-        schema = json.load(f)
+    with open(schema_path, mode="r", encoding="utf-8") as filepointer:
+        schema = json.load(filepointer)
     if Utils.is_win32:
         uri_template = "file:///{0}"
     else:

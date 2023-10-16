@@ -43,8 +43,8 @@
  * @file    test_tsi_limits.c
  * @author  foxBMS Team
  * @date    2021-01-15 (date of creation)
- * @updated 2023-10-12 (date of last update)
- * @version v1.6.0
+ * @updated 2023-02-23 (date of last update)
+ * @version v1.5.1
  * @ingroup UNIT_TEST_IMPLEMENTATION
  * @prefix  TSI
  *
@@ -57,12 +57,7 @@
 #include "Mocktsi_plausibility_cfg.h"
 
 #include "tsi.h"
-
-/*========== Unit Testing Framework Directives ==============================*/
-TEST_SOURCE_FILE("tsi_limits.c")
-
-TEST_INCLUDE_PATH("../../src/app/driver/config")
-TEST_INCLUDE_PATH("../../src/app/driver/ts/api")
+TEST_FILE("tsi_limits.c")
 
 /*========== Definitions and Implementations for Unit Test ==================*/
 

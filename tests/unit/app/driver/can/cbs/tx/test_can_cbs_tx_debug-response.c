@@ -43,8 +43,8 @@
  * @file    test_can_cbs_tx_debug-response.c
  * @author  foxBMS Team
  * @date    2022-08-17 (date of creation)
- * @updated 2023-10-12 (date of last update)
- * @version v1.6.0
+ * @updated 2023-02-23 (date of last update)
+ * @version v1.5.1
  * @ingroup UNIT_TEST_IMPLEMENTATION
  * @prefix  TEST
  *
@@ -55,7 +55,6 @@
 /*========== Includes =======================================================*/
 #include "unity.h"
 #include "Mockcan.h"
-#include "Mockcan_helper.h"
 #include "Mockfoxmath.h"
 #include "Mockrtc.h"
 
@@ -63,20 +62,11 @@
 #include "version_cfg.h"
 
 #include "can_cbs_tx.h"
-#include "can_cbs_tx_debug-response.h"
-#include "can_cfg_tx-message-definitions.h"
+#include "can_helper.h"
 
 #include <stdbool.h>
 
-/*========== Unit Testing Framework Directives ==============================*/
-TEST_SOURCE_FILE("can_cbs_tx_debug-response.c")
-
-TEST_INCLUDE_PATH("../../src/app/driver/can")
-TEST_INCLUDE_PATH("../../src/app/driver/can/cbs")
-TEST_INCLUDE_PATH("../../src/app/driver/can/cbs/tx")
-TEST_INCLUDE_PATH("../../src/app/driver/config")
-TEST_INCLUDE_PATH("../../src/app/driver/foxmath")
-TEST_INCLUDE_PATH("../../src/app/driver/rtc")
+TEST_FILE("can_cbs_tx_debug-response.c")
 
 /*========== Definitions and Implementations for Unit Test ==================*/
 const CAN_NODE_s can_node1 = {
@@ -107,20 +97,5 @@ void tearDown(void) {
 }
 
 /*========== Test Cases =====================================================*/
-void testTransmitCommitHash(void) {
-    uint8_t testData[CAN_MAX_DLC] = {0};
-
-    uint64_t testMessage = 0;
-    CAN_TxSetMessageDataWithSignalData_Expect(&testMessage, 7u, 8u, 0x0005u, CAN_BIG_ENDIAN);
-    CAN_TxSetMessageDataWithSignalData_Expect(&testMessage, 15u, 8u, 0x0064u, CAN_BIG_ENDIAN);
-    CAN_TxSetMessageDataWithSignalData_Expect(&testMessage, 23u, 8u, 0x0065u, CAN_BIG_ENDIAN);
-    CAN_TxSetMessageDataWithSignalData_Expect(&testMessage, 31u, 8u, 0x0061u, CAN_BIG_ENDIAN);
-    CAN_TxSetMessageDataWithSignalData_Expect(&testMessage, 39u, 8u, 0x0064u, CAN_BIG_ENDIAN);
-    CAN_TxSetMessageDataWithSignalData_Expect(&testMessage, 47u, 8u, 0x0062u, CAN_BIG_ENDIAN);
-    CAN_TxSetMessageDataWithSignalData_Expect(&testMessage, 55u, 8u, 0x0065u, CAN_BIG_ENDIAN);
-    CAN_TxSetMessageDataWithSignalData_Expect(&testMessage, 63u, 8u, 0x0065u, CAN_BIG_ENDIAN);
-    CAN_TxSetCanDataWithMessageData_Expect(testMessage, &testData[0], CAN_BIG_ENDIAN);
-    CAN_DataSend_ExpectAndReturn(
-        CAN_NODE_1, CANTX_DEBUG_RESPONSE_ID, CAN_STANDARD_IDENTIFIER_11_BIT, &testData[0], STD_OK);
-    CANTX_DebugResponse(CANTX_DEBUG_RESPONSE_TRANSMIT_COMMIT_HASH);
+void testDummy(void) {
 }

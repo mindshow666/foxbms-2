@@ -16,10 +16,9 @@ A design **MUST** have a name that clearly distinguishes it from other
 designs. The name **SHOULD** be constructed from the project acronym, the
 type or family of design and an identifier.
 
-As an example the master board of a BMS in the project **EXAMPLE** could be
-named ``example-master``.
-If necessary an additional identifier could be added if several similar designs
-exist.
+As an example the master board of a BMS in the project XMPL could be named
+``xmpl-master``. If necessary an additional identifier could be added if
+several similar designs exist.
 
 Design and development process
 ------------------------------
@@ -31,6 +30,7 @@ changes are committed and that no design rule violations remain.
 
 Violations should only be waived or suppressed in justified cases. This
 justification **MUST** be noted in the waived rule.
+
 
 .. _RELEASE_PROCESS:
 
@@ -49,6 +49,7 @@ The release process has the following steps:
 #. Store the release in a pre-defined location so that it can be found.
 #. Mark the released version in version control with a tag.
 
+
 Modification process
 --------------------
 
@@ -61,6 +62,7 @@ be followed:
 #. Describe the impact of the changes to the tests.
 #. Enter the hardware release process :numref:`RELEASE_PROCESS` with
    these changes.
+
 
 Checklist for releases
 ----------------------

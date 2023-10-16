@@ -163,7 +163,7 @@ class EntryFrame(wx.Frame):  # pylint: disable=too-many-ancestors
 
         mb.Append(hm, "?")
 
-        # menu build fully constructed
+        # menu bau fully constructed
         self.SetMenuBar(mb)
 
     def _add_status_bar(self):

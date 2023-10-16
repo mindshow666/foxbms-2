@@ -43,8 +43,8 @@
  * @file    sof_trapezoid_cfg.h
  * @author  foxBMS Team
  * @date    2020-10-07 (date of creation)
- * @updated 2023-10-12 (date of last update)
- * @version v1.6.0
+ * @updated 2023-02-23 (date of last update)
+ * @version v1.5.1
  * @ingroup APPLICATION_CONFIGURATION
  * @prefix  SOF
  *
@@ -58,7 +58,6 @@
 /*========== Includes =======================================================*/
 
 #include "battery_cell_cfg.h"
-#include "battery_system_cfg.h"
 
 #include <math.h>
 #include <stdint.h>
@@ -69,15 +68,13 @@
  * Maximum current in mA in charge direction that a string can sustain.
  * Normally set once for the specific battery cell from data sheet
  */
-#define SOF_STRING_CURRENT_CONTINUOUS_CHARGE_mA \
-    ((float_t)BC_CURRENT_MAX_CHARGE_MOL_mA * BS_NR_OF_PARALLEL_CELLS_PER_CELL_BLOCK)
+#define SOF_STRING_CURRENT_CONTINUOUS_CHARGE_mA ((float_t)BC_CURRENT_MAX_CHARGE_MOL_mA)
 
 /**
  * Maximum current in mA in discharge direction that a string can deliver.
  * Normally set once for the specific battery cell from data sheet.
  */
-#define SOF_STRING_CURRENT_CONTINUOUS_DISCHARGE_mA \
-    ((float_t)BC_CURRENT_MAX_DISCHARGE_MOL_mA * BS_NR_OF_PARALLEL_CELLS_PER_CELL_BLOCK)
+#define SOF_STRING_CURRENT_CONTINUOUS_DISCHARGE_mA ((float_t)BC_CURRENT_MAX_DISCHARGE_MOL_mA)
 
 /**
  * Current in mA that the string should be able to discharge when in

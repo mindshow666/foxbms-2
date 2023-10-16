@@ -43,8 +43,8 @@
  * @file    nxp_afe_dma.c
  * @author  foxBMS Team
  * @date    2020-05-27 (date of creation)
- * @updated 2023-10-12 (date of last update)
- * @version v1.6.0
+ * @updated 2023-02-23 (date of last update)
+ * @version v1.5.1
  * @ingroup DRIVERS
  * @prefix  AFE
  *
@@ -78,7 +78,6 @@
 
 /* Function called on DMA complete interrupts (TX and RX). */
 void AFE_DmaCallback(uint8_t spiIndex) {
-    FAS_ASSERT((spiIndex == 0u) || (spiIndex == 3u));
     if ((spiIndex == 0u)) {
         /* SPI 1 = Master SPI */
         (void)OS_NotifyIndexedFromIsr(ftsk_taskHandleAfe, N775_NOTIFICATION_TX_INDEX, N775_TX_NOTIFIED_VALUE);
@@ -88,9 +87,11 @@ void AFE_DmaCallback(uint8_t spiIndex) {
         /* Set slave SPI pins as GIO to deactivate them */
         dma_spiInterfaces[spiIndex]->PC0 &= 0xFFFFFF00;
         (void)OS_NotifyIndexedFromIsr(ftsk_taskHandleAfe, N775_NOTIFICATION_RX_INDEX, N775_RX_NOTIFIED_VALUE);
-    } else {                  /* LCOV_EXCL_LINE */
-        FAS_ASSERT(FAS_TRAP); /* LCOV_EXCL_LINE */
+    } else {
+        FAS_ASSERT(FAS_TRAP);
     }
+
+    return;
 }
 
 /*========== Externalized Static Function Implementations (Unit Test) =======*/

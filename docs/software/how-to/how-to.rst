@@ -19,9 +19,6 @@ BMS Software Modules
     ./../modules/engine/database/database_how-to.rst
     ./../modules/task/ftask/ftask_how-to.rst
     ./../modules/main/fassert_how-to.rst
-    ./../modules/driver/afe/adding-a-new-ic_how-to
-    ./../modules/driver/ts/adding-a-new-ts_how-to
-    ./../modules/application/bms/bms_how-to
 
 Other
 -----
@@ -29,6 +26,8 @@ Other
 .. toctree::
     :maxdepth: 1
 
+    ./../modules/driver/afe/adding-a-new-ic_how-to
+    ./../modules/driver/ts/adding-a-new-ts_how-to
     ./../../developer-manual/style-guide/state-machines_how-to
     ./../configuration/without-halcogen_how-to
     ./../unit-tests/unit-tests_how-to

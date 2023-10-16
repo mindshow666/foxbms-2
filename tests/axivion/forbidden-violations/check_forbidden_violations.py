@@ -44,8 +44,6 @@ import argparse
 import json
 import logging
 import sys
-import os
-from pathlib import Path
 
 
 def main():
@@ -85,15 +83,6 @@ def main():
     else:
         logging.basicConfig(level=logging.ERROR)
 
-    valid = True
-    if not Path(args.forbidden).is_file():
-        valid = False
-        logging.error(f"File '{args.forbidden}' does not exist.")
-    if not Path(args.report).is_file():
-        valid = False
-        logging.error(f"File '{args.report}' does not exist.")
-    if not valid:
-        sys.exit("Invalid script arguments.")
     forbidden_rules = []
 
     with open(args.forbidden, mode="r", encoding="utf-8") as forbidden:
@@ -104,14 +93,11 @@ def main():
                 continue
             if not rule.lstrip().startswith("#"):
                 forbidden_rules.append(rule)
-    logging.info(
-        "loaded the following rules as forbidden:\n"
-        f"{os.linesep.join(forbidden_rules)}"
-    )
+    logging.info(f"loaded the following rules as forbidden: {forbidden_rules}")
 
     with open(args.report, mode="r", encoding="utf-8") as report:
         report_json = json.load(report)
-    logging.info(f"successfully loaded a JSON report file '{args.report}'.")
+    logging.info("successfully loaded a JSON report file")
 
     fatal_violations_found = False
     for violation in report_json:

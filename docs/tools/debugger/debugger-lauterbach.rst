@@ -26,7 +26,7 @@ Debugger Software
 ^^^^^^^^^^^^^^^^^
 
 The debugger software is available at
-`https://www.lauterbach.com <https://repo.lauterbach.com/download_trace32.html>`_.
+`https://www.lauterbach.com <https://www.lauterbach.com/frames.html?download_trace32.html>`_.
 
 Lauterbach Manual
 ^^^^^^^^^^^^^^^^^
@@ -69,6 +69,7 @@ Flash Manipulation
 #. Unlock flash: ``FLASH.ReProgram ALL``
 #. Manipulate flash as needed
 #. Lock flash: ``FLASH.ReProgram OFF``
+
 
 Deleting Flash
 --------------

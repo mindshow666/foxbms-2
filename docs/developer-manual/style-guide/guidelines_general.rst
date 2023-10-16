@@ -16,6 +16,7 @@ General Rules
     xBB
     xBF
 
+
 The following rules generally apply and follow the naming schema
 ``GENERAL:<ongoing-number>``.
 
@@ -129,7 +130,7 @@ Further General Rules
   would write in English without internal spaces.
   This includes abbreviations and acronyms; e.g., for "camel case" or "Pascal
   case," in which the first letter of each word is capitalized, use a name like
-  ``StartAbc()``, not ``StartABC()``.
+  ``StartRpc()``, not ``StartRPC()``.
 - Non-ASCII characters should be rare, and **MUST** use ``UTF-8`` encoding. You
   **SHOULD NOT** hard-code user-facing text in source code, even English, so
   use of non-ASCII characters should be rare. However, in certain cases it is

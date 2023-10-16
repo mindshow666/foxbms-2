@@ -22,7 +22,7 @@ class CMockGenerator
     @exclude_setjmp_h = @config.exclude_setjmp_h
     @subdir = @config.subdir
 
-    @includes_h_pre_orig_header  = ((@config.includes || []) + (@config.includes_h_pre_orig_header || [])).uniq.map { |h| h =~ /</ ? h : "\"#{h}\"" }
+    @includes_h_pre_orig_header  = (@config.includes || @config.includes_h_pre_orig_header || []).map { |h| h =~ /</ ? h : "\"#{h}\"" }
     @includes_h_post_orig_header = (@config.includes_h_post_orig_header || []).map { |h| h =~ /</ ? h : "\"#{h}\"" }
     @includes_c_pre_header       = (@config.includes_c_pre_header || []).map { |h| h =~ /</ ? h : "\"#{h}\"" }
     @includes_c_post_header      = (@config.includes_c_post_header || []).map { |h| h =~ /</ ? h : "\"#{h}\"" }
@@ -134,14 +134,10 @@ class CMockGenerator
   def create_skeleton_source_file(mock_project)
     filename = "#{@config.mock_path}/#{@subdir + '/' if @subdir}#{mock_project[:module_name]}.c"
     existing = File.exist?(filename) ? File.read(filename) : ''
-    @file_writer.create_file(mock_project[:module_name] + '.c', @subdir) do |file, fullname|
+    @file_writer.append_file(mock_project[:module_name] + '.c', @subdir) do |file, fullname|
       blank_project = mock_project.clone
       blank_project[:parsed_stuff] = { :functions => [] }
-      if existing.empty?
-        create_source_header_section(file, fullname, blank_project)
-      else
-        file << existing << "\n"
-      end
+      create_source_header_section(file, fullname, blank_project) if existing.empty?
       mock_project[:parsed_stuff][:functions].each do |function|
         create_function_skeleton(file, function, existing)
       end
@@ -173,10 +169,6 @@ class CMockGenerator
     file << "#pragma GCC diagnostic ignored \"-Wduplicate-decl-specifier\"\n"
     file << "#endif\n"
     file << "\n"
-    file << "#ifdef __cplusplus\n"
-    file << "extern \"C\" {\n"
-    file << "#endif\n"
-    file << "\n"
   end
 
   def create_typedefs(file, mock_project)
@@ -192,10 +184,6 @@ class CMockGenerator
   end
 
   def create_mock_header_footer(header)
-    header << "\n"
-    header << "#ifdef __cplusplus\n"
-    header << "}\n"
-    header << "#endif\n"
     header << "\n"
     header << "#if defined(__GNUC__) && !defined(__ICC) && !defined(__TMS470__)\n"
     header << "#if __GNUC__ > 4 || (__GNUC__ == 4 && (__GNUC_MINOR__ > 6 || (__GNUC_MINOR__ == 6 && __GNUC_PATCHLEVEL__ > 0)))\n"

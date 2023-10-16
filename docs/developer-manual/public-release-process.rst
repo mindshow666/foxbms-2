@@ -85,6 +85,7 @@ Defining release status of repository
 
       C:\release-bot\foxbms-2>git push origin master --follow-tags
 
+
 Creation of the release branch
 ++++++++++++++++++++++++++++++
 
@@ -117,6 +118,7 @@ Creation of the release branch
    .. code-block:: console
 
       C:\release-bot\foxbms-2>git clean -xdf
+
 
 Publication of the release branch
 +++++++++++++++++++++++++++++++++

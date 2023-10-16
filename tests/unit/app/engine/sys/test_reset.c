@@ -43,8 +43,8 @@
  * @file    test_reset.c
  * @author  foxBMS Team
  * @date    2022-11-16 (date of creation)
- * @updated 2023-10-12 (date of last update)
- * @version v1.6.0
+ * @updated 2023-02-23 (date of last update)
+ * @version v1.5.1
  * @ingroup UNIT_TEST_IMPLEMENTATION
  * @prefix  TEST
  *
@@ -57,10 +57,7 @@
 
 #include "reset.h"
 
-/*========== Unit Testing Framework Directives ==============================*/
-TEST_SOURCE_FILE("reset.c")
-
-TEST_INCLUDE_PATH("../../src/app/engine/sys")
+TEST_FILE("reset.c")
 
 /*========== Definitions and Implementations for Unit Test ==================*/
 
@@ -74,5 +71,5 @@ void tearDown(void) {
 /*========== Test Cases =====================================================*/
 /** make sure that the general BIST is running */
 void testSYS_TriggerSoftwareReset(void) {
-    SYS_TriggerSoftwareReset();
+    SYS_TriggerSoftwareReset;
 }

@@ -11,7 +11,7 @@ class StdoutPrettyTestsReport < Plugin
   end
   
   def post_test_fixture_execute(arg_hash)
-    #TODO CLEANUP return if not (arg_hash[:context] == TEST_SYM)
+    return if not (arg_hash[:context] == TEST_SYM)
   
     @result_list << arg_hash[:result_file]
   end

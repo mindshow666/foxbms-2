@@ -24,9 +24,7 @@
                         "ltc",
                         "maxim",
                         "nxp",
-                        "debug",
-                        "adi",
-                        "ti"
+                        "debug"
                     ]
                 },
                 "ic": {
@@ -113,44 +111,6 @@
                                     ]
                                 }
                             }
-                        },
-                        "else": {
-                            "if": {
-                                "properties": {
-                                    "manufacturer": {
-                                        "enum": [
-                                            "adi"
-                                        ]
-                                    }
-                                }
-                            },
-                            "then": {
-                                "properties": {
-                                    "ic": {
-                                        "enum": [
-                                            "ades1830"
-                                        ]
-                                    }
-                                }
-                            },
-                            "else": {
-                                "if": {
-                                    "properties": {
-                                        "manufacturer": {
-                                            "enum": [
-                                                "ti"
-                                            ]
-                                        }
-                                    }
-                                },
-                                "properties": {
-                                    "ic": {
-                                        "enum": [
-                                            "dummy"
-                                        ]
-                                    }
-                                }
-                            }
                         }
                     }
                 }
@@ -225,7 +185,7 @@
                     "properties": {
                         "model": {
                             "enum": [
-                                "ncxxxxh103"
+                                "ncu15xh103f6sxx"
                             ]
                         }
                     }

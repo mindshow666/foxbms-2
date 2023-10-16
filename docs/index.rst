@@ -170,7 +170,6 @@ All sections are listed here:
 
     ./system/system-introduction.rst
     ./system/system-voltage-and-current-monitoring.rst
-    ./system/precharging.rst
 
 .. _TOOLS_DOCUMENTATION_OVERVIEW:
 

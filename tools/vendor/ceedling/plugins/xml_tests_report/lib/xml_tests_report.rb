@@ -21,7 +21,6 @@ class XmlTestsReport < Plugin
 
       artifact_filename = @ceedling[:configurator].project_config_hash[:xml_tests_report_artifact_filename] || 'report.xml'
       artifact_fullpath = @ceedling[:configurator].project_config_hash[:xml_tests_report_path] || File.join(PROJECT_BUILD_ARTIFACTS_ROOT, context.to_s)
-
       file_path = File.join(artifact_fullpath, artifact_filename)
 
       @ceedling[:file_wrapper].open(file_path, 'w') do |f|
@@ -57,7 +56,7 @@ class XmlTestsReport < Plugin
 
     results.each do |result|
       result[:collection].each do |item|
-        filename = result[:source][:file]
+        filename = File.join(result[:source][:path], result[:source][:file])
 
         stream.puts "\t\t<Test id=\"#{@test_counter}\">"
         stream.puts "\t\t\t<Name>#{filename}::#{item[:test]}</Name>"
@@ -85,9 +84,8 @@ class XmlTestsReport < Plugin
 
     results.each do |result|
       result[:collection].each do |item|
- 		filename = result[:source][:file]
         stream.puts "\t\t<Test id=\"#{@test_counter}\">"
-        stream.puts "\t\t\t<Name>#{filename}::#{item[:test]}</Name>"
+        stream.puts "\t\t\t<Name>#{File.join(result[:source][:path], result[:source][:file])}::#{item[:test]}</Name>"
         stream.puts "\t\t</Test>"
         @test_counter += 1
       end

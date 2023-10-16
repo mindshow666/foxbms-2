@@ -1,5 +1,4 @@
 require 'ceedling/plugin'
-require 'ceedling/yaml_wrapper'
 
 class PluginBuilder
 
@@ -12,8 +11,7 @@ class PluginBuilder
     @system_objects = system_objects
 
     if object_map_yaml
-      ym = YamlMapper.new
-      @object_map = ym.load_string(object_map_yaml)
+      @object_map = YAML.load(object_map_yaml)
       @object_map.each_key do |obj|
         construct_object(obj)
       end

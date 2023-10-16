@@ -16,6 +16,7 @@ Several different Insulation Measurement Devices (IMD) are supported.
     ./bender/bender_iso165c.rst
     ./none/no-imd.rst
 
+
 A superimposed state machine is implemented that interacts with the actual IMD
 implementation. There a different reasons for the state machine to transition
 between the states. Generally three cases can happen:
@@ -76,6 +77,7 @@ submitted to the state machine.
 This can be necessary to prevent a mutual interference if multiple insulation
 monitoring devices would be monitoring the battery system, e.g., when a vehicle
 is connected to a charging station.
+
 
 Description of the IMD state machine
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -153,6 +155,7 @@ Interfaces for IMD driver implementation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following functions are used to interface the actual IMD implementation:
+
 
 .. literalinclude:: ./../../../../../src/app/driver/imd/imd.h
    :language: C

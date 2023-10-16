@@ -5,20 +5,7 @@ require 'erb'
 class YamlWrapper
 
   def load(filepath)
-    source = ERB.new(File.read(filepath)).result
-    begin
-      return YAML.load(source, aliases: true)
-    rescue ArgumentError
-      return YAML.load(source)
-    end
-  end
-
-  def load_string(source)
-    begin
-      return YAML.load(source, aliases: true)
-    rescue ArgumentError
-      return YAML.load(source)
-    end
+    return YAML.load(ERB.new(File.read(filepath)).result)
   end
 
   def dump(filepath, structure)

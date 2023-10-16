@@ -43,8 +43,8 @@
  * @file    test_mxm_17841b.c
  * @author  foxBMS Team
  * @date    2020-06-22 (date of creation)
- * @updated 2023-10-12 (date of last update)
- * @version v1.6.0
+ * @updated 2023-02-23 (date of last update)
+ * @version v1.5.1
  * @ingroup UNIT_TEST_IMPLEMENTATION
  * @prefix  MXM
  *
@@ -67,34 +67,28 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-/*========== Unit Testing Framework Directives ==============================*/
-TEST_SOURCE_FILE("mxm_17841b.c")
-
-TEST_INCLUDE_PATH("../../src/app/driver/afe/maxim/common")
-TEST_INCLUDE_PATH("../../src/app/driver/afe/maxim/common/config")
-TEST_INCLUDE_PATH("../../src/app/driver/config")
-TEST_INCLUDE_PATH("../../src/app/driver/spi")
+TEST_FILE("mxm_17841b.c")
 
 /*========== Definitions and Implementations for Unit Test ==================*/
 /** replicating the config register length in the driver */
 #define MXM_41B_CONFIG_REGISTER_LENGTH (7u)
 
 static MXM_41B_INSTANCE_s mxm_41bState = {
-    .state                = MXM_STATEMACH_41B_UNINITIALIZED,
-    .substate             = MXM_41B_ENTRY_SUBSTATE,
-    .extendMessageBytes   = 0,
-    .waitCounter          = 0,
-    .regRxIntEnable       = 0x00u,
-    .regTxIntEnable       = 0x00u,
-    .regRxStatus          = 0x00u,
-    .regTxStatus          = 0x00u,
-    .regConfig1           = MXM_41B_CONFIG_1_DEFAULT_VALUE,
-    .regConfig2           = MXM_41B_CONFIG_2_DEFAULT_VALUE,
-    .regConfig3           = MXM_41B_CONFIG_3_DEFAULT_VALUE,
-    .hardwareModel        = 0,
-    .hardwareMaskRevision = 0,
-    .spiRxBuffer          = {0},
-    .spiTxBuffer          = {0},
+    .state              = MXM_STATEMACH_41B_UNINITIALIZED,
+    .substate           = MXM_41B_ENTRY_SUBSTATE,
+    .extendMessageBytes = 0,
+    .waitCounter        = 0,
+    .regRXIntEnable     = 0x00u,
+    .regTXIntEnable     = 0x00u,
+    .regRXStatus        = 0x00u,
+    .regTXStatus        = 0x00u,
+    .regConfig1         = MXM_41B_CONFIG_1_DEFAULT_VALUE,
+    .regConfig2         = MXM_41B_CONFIG_2_DEFAULT_VALUE,
+    .regConfig3         = MXM_41B_CONFIG_3_DEFAULT_VALUE,
+    .hwModel            = 0,
+    .hwMaskRevision     = 0,
+    .spiRXBuffer        = {0},
+    .spiTXBuffer        = {0},
 };
 
 uint16_t commandBuffer[10] = {0};
@@ -274,30 +268,30 @@ void testWriteRegisterFunctionWithLegalValues(void) {
     TEST_ASSERT_EQUAL(0xFu, mxm_41bState.regConfig3);
 
     /* standard state should be zero */
-    TEST_ASSERT_EQUAL(0x0u, mxm_41bState.regRxIntEnable);
+    TEST_ASSERT_EQUAL(0x0u, mxm_41bState.regRXIntEnable);
 
     /* rx error int on --> 0x80 */
     TEST_ASSERT_EQUAL(
         STD_OK, MXM_41BWriteRegisterFunction(&mxm_41bState, MXM_41B_REG_FUNCTION_RX_ERROR_INT, MXM_41B_REG_TRUE));
-    TEST_ASSERT_EQUAL(0x80u, mxm_41bState.regRxIntEnable);
+    TEST_ASSERT_EQUAL(0x80u, mxm_41bState.regRXIntEnable);
 
     /* rx error int off --> 0 */
     TEST_ASSERT_EQUAL(
         STD_OK, MXM_41BWriteRegisterFunction(&mxm_41bState, MXM_41B_REG_FUNCTION_RX_ERROR_INT, MXM_41B_REG_FALSE));
-    TEST_ASSERT_EQUAL(0x0u, mxm_41bState.regRxIntEnable);
+    TEST_ASSERT_EQUAL(0x0u, mxm_41bState.regRXIntEnable);
 
     /* standard state should be zero */
-    TEST_ASSERT_EQUAL(0x0u, mxm_41bState.regRxIntEnable);
+    TEST_ASSERT_EQUAL(0x0u, mxm_41bState.regRXIntEnable);
 
     /* rx overflow int on --> 0x8 */
     TEST_ASSERT_EQUAL(
         STD_OK, MXM_41BWriteRegisterFunction(&mxm_41bState, MXM_41B_REG_FUNCTION_RX_OVERFLOW_INT, MXM_41B_REG_TRUE));
-    TEST_ASSERT_EQUAL(0x8u, mxm_41bState.regRxIntEnable);
+    TEST_ASSERT_EQUAL(0x8u, mxm_41bState.regRXIntEnable);
 
     /* rx overflow int off --> 0 */
     TEST_ASSERT_EQUAL(
         STD_OK, MXM_41BWriteRegisterFunction(&mxm_41bState, MXM_41B_REG_FUNCTION_RX_OVERFLOW_INT, MXM_41B_REG_FALSE));
-    TEST_ASSERT_EQUAL(0x0u, mxm_41bState.regRxIntEnable);
+    TEST_ASSERT_EQUAL(0x0u, mxm_41bState.regRXIntEnable);
 }
 /** @}
  * end of tests for function MXM_41BWriteRegisterFunction */
@@ -315,7 +309,7 @@ void testReadRegisterFunctionWithIllegalValues(void) {
 void testReadRegisterFunctionWithLegalValues(void) {
     MXM_41B_REG_BIT_VALUE result = 42;
     /* set register */
-    mxm_41bState.regRxStatus = 0u;
+    mxm_41bState.regRXStatus = 0u;
 
     /* read all functions in this register */
     TEST_ASSERT_EQUAL(STD_OK, MXM_41BReadRegisterFunction(&mxm_41bState, MXM_41B_REG_FUNCTION_RX_BUSY_STATUS, &result));
@@ -326,7 +320,7 @@ void testReadRegisterFunctionWithLegalValues(void) {
     TEST_ASSERT_EQUAL(MXM_41B_REG_FALSE, result);
 
     /* set register with bit RX_EMPTY */
-    mxm_41bState.regRxStatus = 1u;
+    mxm_41bState.regRXStatus = 1u;
 
     /* read all functions in this register */
     TEST_ASSERT_EQUAL(STD_OK, MXM_41BReadRegisterFunction(&mxm_41bState, MXM_41B_REG_FUNCTION_RX_BUSY_STATUS, &result));
@@ -337,7 +331,7 @@ void testReadRegisterFunctionWithLegalValues(void) {
     TEST_ASSERT_EQUAL(MXM_41B_REG_TRUE, result);
 
     /* set register with bit RX_BUSY */
-    mxm_41bState.regRxStatus = 0x20u;
+    mxm_41bState.regRXStatus = 0x20u;
 
     /* read all functions in this register */
     TEST_ASSERT_EQUAL(STD_OK, MXM_41BReadRegisterFunction(&mxm_41bState, MXM_41B_REG_FUNCTION_RX_BUSY_STATUS, &result));
@@ -391,7 +385,7 @@ void testStateCheckFMEA(void) {
 
     /* create a buffer with the assumed output of the ASCI and inject into SPI read */
     uint16_t rxBuffer[10] = {0x13u, 0x00u};
-    MXM_ReceiveData_ExpectAndReturn(mxm_41bState.spiTxBuffer, mxm_41bState.spiRxBuffer, 2, STD_OK);
+    MXM_ReceiveData_ExpectAndReturn(mxm_41bState.spiTXBuffer, mxm_41bState.spiRXBuffer, 2, STD_OK);
     MXM_ReceiveData_ReturnArrayThruPtr_rxBuffer(rxBuffer, 2);
     MXM_41BStateMachine(&mxm_41bState);
     TEST_ASSERT_EQUAL(MXM_STATEMACH_41B_CHECK_FMEA, mxm_41bState.state);
@@ -412,7 +406,7 @@ void testStateCheckFmeaGNDLAlert(void) {
     /* create a buffer with the assumed output of the ASCI and inject into SPI read */
     /* simulate an GNDL Alert in FMEA register */
     uint16_t rxBuffer[10] = {0x13u, 0x01u};
-    MXM_ReceiveData_ExpectAndReturn(mxm_41bState.spiTxBuffer, mxm_41bState.spiRxBuffer, 2, STD_OK);
+    MXM_ReceiveData_ExpectAndReturn(mxm_41bState.spiTXBuffer, mxm_41bState.spiRXBuffer, 2, STD_OK);
     MXM_ReceiveData_ReturnArrayThruPtr_rxBuffer(rxBuffer, 2);
     MXM_41BStateMachine(&mxm_41bState);
     TEST_ASSERT_EQUAL(MXM_STATEMACH_41B_CHECK_FMEA, mxm_41bState.state);
@@ -432,7 +426,7 @@ void testStateGetVersion(void) {
 
     /* create a buffer with the assumed output of the ASCI and inject into SPI read */
     uint16_t rxBuffer[10] = {0x15u, 0x84u, 0x12u};
-    MXM_ReceiveData_ExpectAndReturn(mxm_41bState.spiTxBuffer, mxm_41bState.spiRxBuffer, 3, STD_OK);
+    MXM_ReceiveData_ExpectAndReturn(mxm_41bState.spiTXBuffer, mxm_41bState.spiRXBuffer, 3, STD_OK);
     MXM_ReceiveData_ReturnArrayThruPtr_rxBuffer(rxBuffer, 3);
     MXM_41BStateMachine(&mxm_41bState);
     TEST_ASSERT_EQUAL(MXM_STATEMACH_41B_GET_VERSION, mxm_41bState.state);
@@ -440,8 +434,8 @@ void testStateGetVersion(void) {
     /* check if the values are parsed correctly */
     MXM_GetSPIStateReady_ExpectAndReturn(STD_OK);
     MXM_41BStateMachine(&mxm_41bState);
-    TEST_ASSERT_EQUAL(0x841u, mxm_41bState.hardwareModel);
-    TEST_ASSERT_EQUAL(0x2u, mxm_41bState.hardwareMaskRevision);
+    TEST_ASSERT_EQUAL(0x841u, mxm_41bState.hwModel);
+    TEST_ASSERT_EQUAL(0x2u, mxm_41bState.hwMaskRevision);
 }
 
 void testStateClearReceiveBuffer(void) {
@@ -515,7 +509,7 @@ void testStateUARTWaitForRXStatusChangeFail(void) {
     mxm_41bState.state    = MXM_STATEMACH_41B_UART_TRANSACTION;
     mxm_41bState.substate = MXM_41B_UART_WAIT_FOR_RX_STATUS_CHANGE_READ_AND_READ_BACK_RCV_BUF;
     /* prepare RX buffer with not received RX_Stop_Status bit */
-    mxm_41bState.spiRxBuffer[1] = 0;
+    mxm_41bState.spiRXBuffer[1] = 0;
 
     /* transition */
     MXM_41BStateMachine(&mxm_41bState);
@@ -528,7 +522,7 @@ void testStateUARTWaitForRXStatusChangeSuccess(void) {
     mxm_41bState.state    = MXM_STATEMACH_41B_UART_TRANSACTION;
     mxm_41bState.substate = MXM_41B_UART_WAIT_FOR_RX_STATUS_CHANGE_READ_AND_READ_BACK_RCV_BUF;
     /* prepare RX buffer with  received RX_Stop_Status bit */
-    mxm_41bState.spiRxBuffer[1] |= (0x01u << 1u);
+    mxm_41bState.spiRXBuffer[1] |= (0x01u << 1u);
 
     /* transition */
     MXM_ReceiveData_IgnoreAndReturn(STD_OK);
@@ -575,7 +569,7 @@ void testStateInitNormalFlow(void) {
     MXM_41BStateMachine(&mxm_41bState);
 
     /* now the default configuration should be sent to the bridge IC */
-    MXM_SendData_ExpectAndReturn(mxm_41bState.spiTxBuffer, 8, STD_OK);
+    MXM_SendData_ExpectAndReturn(mxm_41bState.spiTXBuffer, 8, STD_OK);
     MXM_41BStateMachine(&mxm_41bState);
 
     /* default values to check against */
@@ -588,12 +582,12 @@ void testStateInitNormalFlow(void) {
         MXM_41B_CONFIG_2_DEFAULT_VALUE,
         MXM_41B_CONFIG_3_DEFAULT_VALUE};
     MXM_ReceiveData_ExpectAndReturn(
-        mxm_41bState.spiTxBuffer, mxm_41bState.spiRxBuffer, MXM_41B_CONFIG_REGISTER_LENGTH + 1, STD_OK);
+        mxm_41bState.spiTXBuffer, mxm_41bState.spiRXBuffer, MXM_41B_CONFIG_REGISTER_LENGTH + 1, STD_OK);
     MXM_41BStateMachine(&mxm_41bState);
 
     /* inject the values by copying into the pointer (can be done since we know the address) */
     for (uint8_t i = 0u; i < MXM_41B_CONFIG_REGISTER_LENGTH; i++) {
-        mxm_41bState.spiRxBuffer[i + 1u] = mxm_41B_reg_default_values[i];
+        mxm_41bState.spiRXBuffer[i + 1u] = mxm_41B_reg_default_values[i];
     }
 
     MXM_GetSPIStateReady_ExpectAndReturn(STD_OK);

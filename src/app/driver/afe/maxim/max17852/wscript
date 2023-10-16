@@ -60,6 +60,11 @@ def build(bld):
         os.path.join("..", "..", "api", "afe_plausibility.c"),
     ]
     includes = [
+        ".",
+        os.path.join("..", "api"),
+        os.path.join("..", "common"),
+        os.path.join("..", "common", "config"),
+        os.path.join("..", "..", "api"),
         os.path.join("..", "..", "..", "config"),
         os.path.join("..", "..", "..", "foxmath"),
         os.path.join("..", "..", "..", "io"),
@@ -74,7 +79,6 @@ def build(bld):
         os.path.join("..", "..", "..", "..", "engine", "diag"),
         os.path.join("..", "..", "..", "..", "task", "os"),
     ]
-    includes.extend(bld.env.INCLUDES_AFE)
     includes.extend(bld.env.INCLUDES_RTOS)
     cflags = bld.env.CFLAGS_FOXBMS
     target = f"{bld.env.APPNAME.lower()}-afe-driver"

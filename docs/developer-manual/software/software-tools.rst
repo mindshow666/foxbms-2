@@ -54,7 +54,7 @@ The following tools are shown in :numref:`mapping-of-third-party-tools`.
    +-----------------+-------------------------+-------------+----------------------------------------+
    | VS Code         | text editor             | T1          |                                        |
    +-----------------+-------------------------+-------------+----------------------------------------+
-   | Waf             | build automation system | T3          | controls build process; generates      |
+   | waf             | build automation system | T3          | controls build process; generates      |
    |                 |                         |             | version dependent code                 |
    +-----------------+-------------------------+-------------+----------------------------------------+
    | Axivion Suite   | static program          | T2          |                                        |

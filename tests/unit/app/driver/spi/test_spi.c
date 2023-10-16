@@ -43,8 +43,8 @@
  * @file    test_spi.c
  * @author  foxBMS Team
  * @date    2020-04-01 (date of creation)
- * @updated 2023-10-12 (date of last update)
- * @version v1.6.0
+ * @updated 2023-02-23 (date of last update)
+ * @version v1.5.1
  * @ingroup UNIT_TEST_IMPLEMENTATION
  * @prefix  TEST
  *
@@ -68,13 +68,7 @@
 
 #include <stdbool.h>
 
-/*========== Unit Testing Framework Directives ==============================*/
-TEST_SOURCE_FILE("spi.c")
-
-TEST_INCLUDE_PATH("../../src/app/driver/config")
-TEST_INCLUDE_PATH("../../src/app/driver/dma")
-TEST_INCLUDE_PATH("../../src/app/driver/io")
-TEST_INCLUDE_PATH("../../src/app/driver/spi")
+TEST_FILE("spi.c")
 
 /*========== Definitions and Implementations for Unit Test ==================*/
 
@@ -98,16 +92,6 @@ DMA_CHANNEL_CONFIG_s dma_spiDmaChannels[DMA_NUMBER_SPI_INTERFACES] = {
     {DMA_CH4, DMA_CH5}, /*!< SPI3 */
     {DMA_CH6, DMA_CH7}, /*!< SPI4 */
     {DMA_CH8, DMA_CH9}, /*!< SPI5 */
-};
-
-/** SPI data configuration struct for ADI communication */
-static spiDAT1_t spi_kAdiDataConfig[BS_NR_OF_STRINGS] = {
-    {                      /* struct is implemented in the TI HAL and uses uppercase true and false */
-     .CS_HOLD = TRUE,      /* If true, HW chip select kept active between words */
-     .WDEL    = FALSE,     /* Activation of delay between words */
-     .DFSEL   = SPI_FMT_0, /* Data word format selection */
-     /* Hardware chip select is configured automatically depending on configuration in #SPI_INTERFACE_CONFIG_s */
-     .CSNR = SPI_HARDWARE_CHIP_SELECT_DISABLE_ALL},
 };
 
 /** SPI data configuration struct for LTC communication */
@@ -167,6 +151,16 @@ static spiDAT1_t spi_kSpsDataConfigLowSpeed = {
     .CSNR = SPI_HARDWARE_CHIP_SELECT_DISABLE_ALL,
 };
 
+/** SPI data configuration struct for SPS communication in high speed (10MHz) */
+static spiDAT1_t spi_kSpsDataConfigHighSpeed = {
+    /* struct is implemented in the TI HAL and uses uppercase true and false */
+    .CS_HOLD = TRUE,      /* If true, HW chip select kept active */
+    .WDEL    = TRUE,      /* Activation of delay between words */
+    .DFSEL   = SPI_FMT_2, /* Data word format selection */
+    /* Hardware chip select is configured automatically depending on configuration in #SPI_INTERFACE_CONFIG_s */
+    .CSNR = SPI_HARDWARE_CHIP_SELECT_DISABLE_ALL,
+};
+
 /** SPI configuration struct for SBC communication */
 static spiDAT1_t spi_kSbcDataConfig = {
     /* struct is implemented in the TI HAL and uses uppercase true and false */
@@ -175,20 +169,6 @@ static spiDAT1_t spi_kSbcDataConfig = {
     .DFSEL   = SPI_FMT_0, /* Data word format selection */
     /* Hardware chip select is configured automatically depending on configuration in #SPI_INTERFACE_CONFIG_s */
     .CSNR = SPI_HARDWARE_CHIP_SELECT_DISABLE_ALL,
-};
-
-/**
- * SPI interface configuration for ADI communication
- * This is a list of structs because of multi string
- */
-SPI_INTERFACE_CONFIG_s spi_adiInterface[BS_NR_OF_STRINGS] = {
-    {
-        .pConfig  = &spi_kAdiDataConfig[0u],
-        .pNode    = spiREG1,
-        .pGioPort = &(spiREG1->PC3),
-        .csPin    = 1u,
-        .csType   = SPI_CHIP_SELECT_HARDWARE,
-    },
 };
 
 /**
@@ -310,7 +290,6 @@ void testSPI_InitializeChipSelects(void) {
     TEST_SPI_InitializeChipSelects();
 
     /* ======= RT1/1: test output verification */
-    TEST_ASSERT_EQUAL(SPI_HARDWARE_CHIP_SELECT_1_ACTIVE, spi_adiInterface[currentString].pConfig->CSNR);
     TEST_ASSERT_EQUAL(SPI_HARDWARE_CHIP_SELECT_1_ACTIVE, spi_ltcInterface[currentString].pConfig->CSNR);
     TEST_ASSERT_EQUAL(SPI_HARDWARE_CHIP_SELECT_1_ACTIVE, spi_nxp775InterfaceTx[currentString].pConfig->CSNR);
     TEST_ASSERT_EQUAL(SPI_HARDWARE_CHIP_SELECT_0_ACTIVE, spi_nxp775InterfaceRx[currentString].pConfig->CSNR);

@@ -43,8 +43,8 @@
  * @file    test_mxm_bitextract.c
  * @author  foxBMS Team
  * @date    2020-04-07 (date of creation)
- * @updated 2023-10-12 (date of last update)
- * @version v1.6.0
+ * @updated 2023-02-23 (date of last update)
+ * @version v1.5.1
  * @ingroup UNIT_TEST_IMPLEMENTATION
  * @prefix  TEST
  *
@@ -58,9 +58,6 @@
 #include "unity.h"
 
 #include "mxm_bitextract.h"
-
-/*========== Unit Testing Framework Directives ==============================*/
-TEST_INCLUDE_PATH("../../src/app/driver/afe/maxim/common")
 
 /*========== Definitions and Implementations for Unit Test ==================*/
 
@@ -134,41 +131,41 @@ void testReadValuePositionOneWithMoreBits(void) {
 }
 
 void testReadValueTXPreambles(void) {
-    uint8_t reg = 0x20u;
+    uint8_t reg = 0b100000;
     TEST_ASSERT_EQUAL(1u, mxm_41bReadValue(reg, 1, MXM_41B_TX_PREAMBLES));
 }
 
 void testReadValueKeepAlive(void) {
-    uint8_t reg = 0x0Fu;
+    uint8_t reg = 0b1111;
     TEST_ASSERT_EQUAL(0xFu, mxm_41bReadValue(reg, 4, MXM_41B_KEEP_ALIVE));
 }
 
 void testReadValueKeepAliveOne(void) {
-    uint8_t reg = 0x01u;
+    uint8_t reg = 0b1;
     TEST_ASSERT_EQUAL(0x1u, mxm_41bReadValue(reg, 4, MXM_41B_KEEP_ALIVE));
 }
 
 void testReadValueKeepAliveFiveBits(void) {
-    uint8_t reg = 0x1Fu;
+    uint8_t reg = 0b11111;
     TEST_ASSERT_EQUAL(0xFu, mxm_41bReadValue(reg, 4, MXM_41B_KEEP_ALIVE));
 }
 
 void testReadValueRXError(void) {
-    uint8_t reg = 0x80u;
+    uint8_t reg = 0b10000000;
     TEST_ASSERT_EQUAL(1u, mxm_41bReadValue(reg, 1, MXM_41B_RX_ERROR));
 }
 
 void testReadValueRXOverflowStatus(void) {
-    uint8_t reg = 0x08u;
+    uint8_t reg = 0b1000;
     TEST_ASSERT_EQUAL(1u, mxm_41bReadValue(reg, 1, MXM_41B_RX_OVERFLOW_INT_ENABLE));
 }
 
 void testReadValueRXBusy(void) {
-    uint8_t reg = 0x20u;
+    uint8_t reg = 0b100000;
     TEST_ASSERT_EQUAL(1u, mxm_41bReadValue(reg, 1, MXM_41B_RX_BUSY_STATUS));
 }
 
 void testReadValueRXEmptyStatus(void) {
-    uint8_t reg = 0x01u;
+    uint8_t reg = 0b1;
     TEST_ASSERT_EQUAL(1u, mxm_41bReadValue(reg, 1, MXM_41B_RX_EMPTY_STATUS));
 }

@@ -17,12 +17,6 @@ tools/waf-sig*
 *.gz
 *.zip
 *.7z
-*.stats
-
-# spelling
-dictionary.dic
-file.log*
-lex.txt
 
 __pycache__
 .mypy_cache/
@@ -54,8 +48,7 @@ __pycache__
 *.~*
 *.~$*
 
-**/foxbms-2_axivion_report*.json
-spa-artifacts/
+**/foxbms-2_axivion_report.json
 
 *.exe
 
@@ -63,5 +56,3 @@ spa-artifacts/
 
 # CAN log files
 *.asc
-
-*.tmp

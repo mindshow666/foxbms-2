@@ -43,8 +43,8 @@
  * @file    test_nxp_afe.c
  * @author  foxBMS Team
  * @date    2020-06-10 (date of creation)
- * @updated 2023-10-12 (date of last update)
- * @version v1.6.0
+ * @updated 2023-02-23 (date of last update)
+ * @version v1.5.1
  * @ingroup UNIT_TEST_IMPLEMENTATION
  * @prefix  TEST
  *
@@ -60,11 +60,9 @@
 
 #include "afe.h"
 
-/*========== Unit Testing Framework Directives ==============================*/
-TEST_SOURCE_FILE("nxp_afe.c")
-
-TEST_INCLUDE_PATH("../../src/app/driver/afe/api")
-TEST_INCLUDE_PATH("../../src/app/driver/afe/nxp/api")
+/* it's important to mention the implementation in nxp_afe.c
+here in order to test the correct implementation */
+TEST_FILE("nxp_afe.c")
 
 /*========== Definitions and Implementations for Unit Test ==================*/
 

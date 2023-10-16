@@ -43,8 +43,8 @@
  * @file    main.c
  * @author  foxBMS Team
  * @date    2019-08-27 (date of creation)
- * @updated 2023-10-12 (date of last update)
- * @version v1.6.0
+ * @updated 2023-02-23 (date of last update)
+ * @version v1.5.1
  * @ingroup GENERAL
  * @prefix  TODO
  *
@@ -70,7 +70,7 @@
 #include "foxmath.h"
 #include "i2c.h"
 #include "led.h"
-#include "master_info.h"
+#include "masterinfo.h"
 #include "os.h"
 #include "pwm.h"
 #include "spi.h"

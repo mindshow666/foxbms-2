@@ -95,14 +95,19 @@ Thus, the following voltages need to be measured in each string:
 
 The current sensor additional measures each string current.
 
-Comprehension of measured voltages and current is found in
-:numref:`measured-voltages-and-current-in-the-pack`.
+Comprehension of measured voltages and current in the pack:
 
-.. csv-table:: List of measured voltages and current in the pack
-   :name: measured-voltages-and-current-in-the-pack
-   :header-rows: 1
-   :delim: ;
-   :file: ./measured-voltages-and-current-in-the-pack.csv
++---------------+---------------------------------------+
+| Symbol        | Description                           |
++===============+=======================================+
+| V\ :sub:`Sm`  | Voltage of string m                   |
++---------------+---------------------------------------+
+| V\ :sub:`FSm` | Voltage after string fuse of string m |
++---------------+---------------------------------------+
+| V\ :sub:`Pm`  | Pack voltage                          |
++---------------+---------------------------------------+
+| I\ :sub:`Sm`  | Current in string m                   |
++---------------+---------------------------------------+
 
 ********************
 Single-String System
@@ -130,7 +135,7 @@ inside the string are required.
    :name: pack-measurements-single-string-system
    :header-rows: 1
    :delim: ;
-   :file: ./pack-measurements-single-string-system.csv
+   :file: ./bjb-measurements.csv
 
 ********************************************
 Measurements Inside the Battery Junction Box
